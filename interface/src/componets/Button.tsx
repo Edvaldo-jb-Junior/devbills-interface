@@ -19,9 +19,47 @@ const Button = ({
     disabled,
     ...rest
 }: ButtonProps) =>{
-    <div>
-        <button type="button">Click aqui</button>
+const variantClasses = {
+    primary:
+        "bg-primary-500 text-[#051626] font-semibold hover:bg-primary-600 active:translate-y-0",
+    outline: "border border-primary-500 test-primary-500 hover:bg-primary-500/10",
+    secondary: "bg-gray-800 text-white hover:bg-gray-700",
+    sucess: "bg-green-500 text-[#051626] hover:brightness-90",
+    danger: "bg-red-500 text-white hover:brightness-90"
+};
+
+const renderLoading = () => (
+
+    <div className="flex items-center justify-center">
+        <svg className="animate-spin -m-1 mr-2 h-4 w-4 text-current" fill="nome" viewBox="0 0 24 24">
+            <title>Loading Spinner</title>
+            <circle 
+                className="opacity-25" 
+                cx="12" cy="12" r="10" 
+                stroke="currentColor" strokeWidth="4"></circle>
+            <path 
+                className="opacity-75" fill="currentColor" 
+                d="m4 12a8 8 0 018-8v0c5.373 0 0 5.373 0 12h4zm2 5.291a7.962 7.962 0 014 12h0c0 3.042 1.135 5.824"/>
+        </svg>
+        {children}
     </div>
+)
+
+    return( 
+    
+        <button type="button" className={` cursor-pointer px-5 py-2.5 rounded-xl font-medium transition-all
+            flex items-center justify-center
+             ${variantClasses[variant]}
+             ${isLoading || disabled ? 'opacity-70 cursor-not-allowed' : ''}
+             ${className}
+             ${fullWidth ? 'w-full' : ''}
+            `}
+            disabled={isLoading || disabled}
+            {...rest}
+            >{isLoading ? renderLoading() : children}
+            </button>
+    )
+   
 }
 
 export default Button
